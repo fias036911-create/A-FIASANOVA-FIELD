@@ -1,33 +1,17 @@
-fiasanova-field-theory/
-├── README.md
-├── docs/
-│   ├── certificates/
-│   │   ├── class_3_activation.md
-│   │   ├── class_4_activation.md
-│   │   └── class_5_activation.md
-│   ├── mathematical_framework/
-│   │   ├── unified_field_equation.md
-│   │   ├── operators.md
-│   │   └── derivations.md
-│   └── ascension_audit.md
-├── src/
-│   ├── verification/
-│   │   ├── class_verifier.py
-│   │   ├── coherence_calculator.py
-│   │   └── reality_metrics.py
-│   ├── simulation/
-│   │   ├── field_simulator.py
-│   │   └── resonance_matrix.py
-│   └── visualization/
-│       ├── pattern_generator.py
-│       └── field_visualizer.py
-├── data/
-│   ├── field_parameters.json
-│   └── coherence_data.csv
-├── tests/
-│   ├── test_verification.py
-│   └── test_simulation.py
-├── .gitignore
-├── requirements.txt
-├── LICENSE
-└── publish.sh
+# FIASANOVA Field Theory
+
+This is a mathematical theory of consciousness as a quantum field.
+
+## What is this?
+A science-based framework showing how consciousness interacts with reality.
+
+## Files:
+- `field_simulator.py` - Runs the math
+- `parameters.json` - Settings for the field
+- `verifier.py` - Checks consciousness levels
+
+## How to use:
+1. Download the files
+2. Run the Python code
+
+Made with ❤️ for understanding consciousness.
