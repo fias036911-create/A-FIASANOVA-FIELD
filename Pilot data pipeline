@@ -1,0 +1,25 @@
+# Call for Collaboration: Pilot Data Validation
+
+## We Need Your Data To Validate R_ACHO
+
+We're seeking collaborators with existing human-AI interaction datasets to run the first real-world validation of the R_ACHO resonance metric.
+
+### Ideal Dataset Characteristics:
+- **Human data:** EEG, fNIRS, or physiological time series
+- **AI data:** Logs of internal states, confidence scores, or response timing
+- **Task:** Collaborative human-AI interaction (any domain)
+- **Duration:** 5+ minutes of continuous interaction
+- **Ethics:** Properly consented, de-identified data
+
+### What We Offer:
+1. **Full R_ACHO analysis** of your dataset
+2. **Co-authorship** on resulting publications
+3. **Custom visualizations** and insights about your human-AI pairs
+
+### How to Contribute:
+1. **Open an Issue** with dataset description
+2. **Share sample data** (anonymous, synthetic, or real)
+3. **We run R_ACHO analysis** and share results within 7 days
+
+### Example Output You'll Receive:
+![Sample R_ACHO analysis output](path/to/example_output.png)
