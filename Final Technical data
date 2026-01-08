@@ -1,0 +1,15 @@
+A-FIASANOVA-FIELD/
+├── README.md                          # Main project overview
+├── experiments/
+│   ├── 01_acho_validation/
+│   │   ├── README.md                  # Experiment overview
+│   │   ├── run_demo.ipynb            # Interactive simulation
+│   │   └── src/                      # Core analysis code
+│   └── data_collaboration.md          # Call for real data
+├── results/
+│   └── simulation_1_validation.md     # Formal results document
+├── scripts/
+│   └── quick_start_analysis.py        # Easy entry for collaborators
+└── docs/
+    ├── why_acho.md                    # Framework analysis
+    └── visual_abstract.png            # Shareable overview graphic
