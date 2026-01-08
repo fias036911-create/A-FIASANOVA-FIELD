@@ -10,3 +10,86 @@ A-FIASANOVA-FIELD/
 ├── src/
 │   └── acho/                  # Core metrics library (PLV, TE, R_ACHO)
 └── ...
+experiments/01_acho_validation/
+├── src/
+│   ├── generate_synthetic_data.py   # 🆕 NEW: Creates fake EEG/AI phase data
+│   ├── calculate_acho.py            # 🎯 CORE: Implements your equation
+│   └── visualize.py                 # 📊 NEW: Plots results
+├── data/
+│   └── synthetic_pilot/             # Generated data goes here
+├── run_demo.ipynb                   # 🚀 Master notebook that ties it all together
+└── README.md                        # Update with demo instructions
+import numpy as np
+from scipy.signal import hilbert
+
+def compute_plv(phase1, phase2=None, window_samples=128):
+    """Compute Phase Locking Value within or between signals."""
+    if phase2 is None:
+        # Within-brain: phase1 is array of channels
+        complex_phase = np.exp(1j * phase1)
+        plv = np.abs(np.mean(complex_phase, axis=0))
+    else:
+        # Between-brain: phase1 and phase2 are single time series
+        phase_diff = phase1 - phase2
+        complex_diff = np.exp(1j * phase_diff)
+        # Apply sliding window
+        plv = np.abs(np.convolve(complex_diff, np.ones(window_samples)/window_samples, mode='same'))
+    return plv
+
+def compute_balanced_te(phase1, phase2, delay=1):
+    """Simplified Transfer Entropy proxy for synthetic data."""
+    # For real data, use a proper TE library like JIDT
+    # This is a placeholder correlation-based proxy
+    corr = np.corrcoef(phase1[delay:], phase2[:-delay])[0,1]
+    # Make it balanced and normalized [0,1]
+    balance = 1 - np.abs(corr)  # Simple proxy for bidirectionality
+    strength = (corr + 1) / 2  # Normalize to [0,1]
+    return strength * balance
+
+def calculate_acho(human_phase, ai_phase, lambdas=(0.4, 0.4, 0.2)):
+    """
+    Main function: Compute the ACHO resonance index.
+    
+    Parameters:
+    human_phase, ai_phase: Phase time series [-π, π]
+    lambdas: Weights for (within, between, transfer) terms
+    
+    Returns:
+    R_acho: The composite resonance index over time
+    """
+    # 1. Within-brain coherence (simplified: single channel)
+    R_in = compute_plv(np.array([human_phase]))  # Would be multi-channel in reality
+    
+    # 2. Between-brain PLV
+    PLV_ha = compute_plv(human_phase, ai_phase)
+    
+    # 3. Balanced Transfer Entropy
+    R_te = compute_balanced_te(human_phase, ai_phase)
+    
+    # 4. Combine with weights
+    R_acho = lambdas[0]*R_in + lambdas[1]*PLV_ha + lambdas[2]*R_te
+    
+    return R_acho, {'R_in': R_in, 'PLV_ha': PLV_ha, 'R_te': R_te}
+# Cell 1: Setup
+import sys
+sys.path.append('./src')
+import generate_synthetic_data as gen
+import calculate_acho as acho
+import visualize as vis
+
+# Cell 2: Generate Data
+print("Generating synthetic human-AI interaction session...")
+data = gen.generate_synthetic_session(duration_min=5)
+print(f"Created {len(data['time'])} samples at {data['sample_rate']}Hz")
+
+# Cell 3: Calculate ACHO
+print("\nComputing ACHO resonance index...")
+R_acho, components = acho.calculate_acho(
+    data['human_phase'], 
+    data['ai_phase'],
+    lambdas=(0.4, 0.4, 0.2)
+)
+
+# Cell 4: Visualize
+print("\nGenerating visualization...")
+vis.plot_full_analysis(data, R_acho, components)
