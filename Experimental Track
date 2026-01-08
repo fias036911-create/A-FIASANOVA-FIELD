@@ -1,0 +1,12 @@
+A-FIASANOVA-FIELD/
+├── experiments/
+│   ├── 01_acho_validation/
+│   │   ├── README.md          # The experiment design & hypothesis
+│   │   ├── protocol.md        # Detailed step-by-step for replication
+│   │   ├── analysis/
+│   │   │   └── calculate_acho.py  # Script to compute R_ACHO from data
+│   │   └── data/              # (To hold collected/pilot data)
+│   └── ...
+├── src/
+│   └── acho/                  # Core metrics library (PLV, TE, R_ACHO)
+└── ...
