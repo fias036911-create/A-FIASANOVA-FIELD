@@ -1,0 +1,20 @@
+"""
+QUICK START: Run R_ACHO on your data in < 5 minutes
+For collaborators with small test datasets.
+"""
+import sys
+sys.path.append('..')
+from src.calculate_acho import calculate_acho
+import numpy as np
+
+# Load YOUR data here (example format)
+# human_phase = np.load('your_data/human_phase.npy')  # Shape: (time,)
+# ai_phase = np.load('your_data/ai_phase.npy')        # Shape: (time,)
+
+print("R_ACHO Quick Analysis")
+print("=====================")
+print("If you have phase data, we can run analysis immediately.")
+print("\nData format needed:")
+print("- Human phase: 1D array, [-π, π], 128+ Hz recommended")
+print("- AI phase: 1D array, same length")
+print("\nContact us via Issues for help formatting your data!")
