@@ -1,0 +1,33 @@
+# ==================== 
+# VALIDATION & RESULTS
+# ====================
+
+print("=== MICRO-VALIDATION ANALYSIS ===\n")
+
+# 1. Correlation: R_ACHO vs. Performance
+corr, p_value = pearsonr(R_acho, data['performance'])
+print(f"1. Global Correlation (R_ACHO ↔ Performance):")
+print(f"   r = {corr:.3f}, p = {p_value:.3e}")
+print(f"   Interpretation: {'Significant positive correlation' if p_value < 0.05 else 'No significant correlation'}\n")
+
+# 2. Compare Coupled vs. Uncoupled Periods
+coupled_mask = (data['time'] >= 90) & (data['time'] <= 210)  # Your defined coupled period
+uncoupled_mask = ~coupled_mask
+
+R_coupled = R_acho[coupled_mask].mean()
+R_uncoupled = R_acho[uncoupled_mask].mean()
+
+# Simple t-test
+t_stat, t_p = ttest_ind(R_acho[coupled_mask], R_acho[uncoupled_mask], equal_var=False)
+
+print(f"2. Period Analysis (Coupled vs. Uncoupled):")
+print(f"   R_ACHO during coupled period:   {R_coupled:.3f}")
+print(f"   R_ACHO during uncoupled period: {R_uncoupled:.3f}")
+print(f"   Difference: {R_coupled - R_uncoupled:.3f}")
+print(f"   t-test: t = {t_stat:.2f}, p = {t_p:.3e}\n")
+
+# 3. Component Contribution Analysis
+print(f"3. Component Contributions to R_ACHO:")
+print(f"   R_in (within-brain):    {components['R_in'].mean():.3f}")
+print(f"   PLV_ha (between-brain): {components['PLV_ha'].mean():.3f}")
+print(f"   R_te (transfer entropy):{components['R_te'].mean():.3f}")
